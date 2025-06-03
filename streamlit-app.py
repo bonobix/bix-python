@@ -1,4 +1,4 @@
-import streamlit as stMore actions
+import streamlit as st
 import os
 
 from fetch_wikimedia.scripts.fetch_dipinti import main as fetch_images
