@@ -2,6 +2,7 @@ import streamlit as st
 import os
 import shutil
 import json
+import subprocess
 
 from fetch_wikimedia.scripts.fetch_dipinti import main as fetch_images
 from fetch_wikimedia.scripts.filtro_entropia import main as entropy_filter
@@ -25,9 +26,29 @@ if st.button("🔄 Aggiorna categoria"):
         
 if st.button("🔍 Scarica immagini"):
     st.write("Inizio download...")
-    fetch_images()
-    st.success("Download completato!")
+    log_box = st.empty()  # Qui scriviamo progressivamente l'output
 
+    # Eseguiamo lo script come subprocess e leggiamo l'output riga per riga
+    process = subprocess.Popen(
+        ["python", "fetch_wikimedia/scripts/fetch_dipinti.py"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        bufsize=1
+    )
+
+    output = ""
+    for line in process.stdout:
+        output += line
+        log_box.code(output)  # Aggiorniamo la "finestra terminale"
+
+    process.wait()
+
+    if process.returncode == 0:
+        st.success("✅ Download completato!")
+    else:
+        st.error("❌ Qualcosa è andato storto!")
+        
 if st.button("🧠 Filtro entropia"):
     st.write("Filtraggio entropico in corso...")
     entropy_filter()
