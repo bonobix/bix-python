@@ -16,10 +16,15 @@ st.set_page_config(page_title="Wikimedia Art Filter", layout="centered")
 
 if "last_refresh" not in st.session_state:
     st.session_state.last_refresh = time.time()
+    st.session_state.rerun_count = 0
+
+st.write(f"🕓 Ultimo refresh: {datetime.fromtimestamp(st.session_state.last_refresh).strftime('%H:%M:%S')}")
+st.write(f"🔁 Rerun #: {st.session_state.rerun_count}")
 
 # Ogni 5 minuti
-if time.time() - st.session_state.last_refresh > 15:
+if time.time() - st.session_state.last_refresh > 300:
     st.session_state.last_refresh = time.time()
+    st.session_state.rerun_count += 1
     st.experimental_rerun()
     
 st.title("🎨 Wikimedia Art Filter")
