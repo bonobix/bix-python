@@ -81,6 +81,21 @@ def crea_bottone_download_per_cartella(nome_cartella):
                 mime="application/zip"
             )
 
-cartelle_output = ["selected_paintings", "baroque_paintings"]
-for cartella in cartelle_output:
-    crea_bottone_download_per_cartella(cartella)
+cartelle_output = {
+    "baroque_paintings": "📦 Scarica tutto",
+    "selected_paintings": "🎯 Scarica solo i filtrati"
+}
+
+for cartella, etichetta in cartelle_output.items():
+    if os.path.isdir(cartella) and os.listdir(cartella):
+        zip_path = f"{cartella}.zip"
+        if not os.path.exists(zip_path):
+            shutil.make_archive(cartella, 'zip', cartella)
+
+        with open(zip_path, "rb") as f:
+            st.download_button(
+                label=etichetta,
+                data=f,
+                file_name=f"{cartella}.zip",
+                mime="application/zip"
+            )
