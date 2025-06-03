@@ -1,7 +1,7 @@
 VENV = .venv_wikimedia
 
 run: $(VENV)/bin/activate
-	@source $(VENV)/bin/activate && \
+	. $(VENV)/bin/activate && \
 	pip install -r requirements.txt && \
 	python fetch_paintings/main.py
 
