@@ -5,6 +5,7 @@ import json
 import sys
 import subprocess
 from collections import deque
+import time
 
 from fetch_wikimedia.scripts.fetch_dipinti import main as fetch_images
 from fetch_wikimedia.scripts.filtro_entropia import main as entropy_filter
@@ -99,3 +100,12 @@ for cartella, etichetta in cartelle_output.items():
                 file_name=f"{cartella}.zip",
                 mime="application/zip"
             )
+
+
+if "last_refresh" not in st.session_state:
+    st.session_state.last_refresh = time.time()
+
+# Ogni 5 minuti
+if time.time() - st.session_state.last_refresh > 300:
+    st.session_state.last_refresh = time.time()
+    st.experimental_rerun()
