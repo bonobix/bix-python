@@ -11,6 +11,9 @@ from fetch_wikimedia.scripts.fetch_dipinti import main as fetch_images
 from fetch_wikimedia.scripts.filtro_entropia import main as entropy_filter
 from fetch_wikimedia.scripts.filtro_laplaciano import main as laplace_filter
 
+    
+st.set_page_config(page_title="Wikimedia Art Filter", layout="centered")
+
 if "last_refresh" not in st.session_state:
     st.session_state.last_refresh = time.time()
 
@@ -19,8 +22,6 @@ if time.time() - st.session_state.last_refresh > 15:
     st.session_state.last_refresh = time.time()
     st.experimental_rerun()
     
-st.set_page_config(page_title="Wikimedia Art Filter", layout="centered")
-
 st.title("🎨 Wikimedia Art Filter")
 st.write("Scarica dipinti, filtra per qualità, e seleziona le immagini migliori.")
 
