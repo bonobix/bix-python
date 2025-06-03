@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import shutil
 import json
 
 from fetch_wikimedia.scripts.fetch_dipinti import main as fetch_images
@@ -39,3 +40,21 @@ if st.button("🔄 Aggiorna categoria"):
         st.success(f"✅ Categoria aggiornata a: {user_category}")
     except Exception as e:
         st.error(f"❌ Errore durante l'aggiornamento: {e}")
+
+def crea_bottone_download_per_cartella(nome_cartella):
+    if os.path.isdir(nome_cartella) and os.listdir(nome_cartella):
+        zip_path = f"{nome_cartella}.zip"
+        if not os.path.exists(zip_path):
+            shutil.make_archive(nome_cartella, 'zip', nome_cartella)
+
+        with open(zip_path, "rb") as f:
+            st.download_button(
+                label=f"📦 Scarica: {nome_cartella}",
+                data=f,
+                file_name=f"{nome_cartella}.zip",
+                mime="application/zip"
+            )
+
+cartelle_output = ["selected_paintings", "baroque_paintings"]
+for cartella in cartelle_output:
+    crea_bottone_download_per_cartella(cartella)
