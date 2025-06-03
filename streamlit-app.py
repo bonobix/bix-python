@@ -11,6 +11,14 @@ from fetch_wikimedia.scripts.fetch_dipinti import main as fetch_images
 from fetch_wikimedia.scripts.filtro_entropia import main as entropy_filter
 from fetch_wikimedia.scripts.filtro_laplaciano import main as laplace_filter
 
+if "last_refresh" not in st.session_state:
+    st.session_state.last_refresh = time.time()
+
+# Ogni 5 minuti
+if time.time() - st.session_state.last_refresh > 15:
+    st.session_state.last_refresh = time.time()
+    st.experimental_rerun()
+    
 st.set_page_config(page_title="Wikimedia Art Filter", layout="centered")
 
 st.title("🎨 Wikimedia Art Filter")
@@ -101,11 +109,3 @@ for cartella, etichetta in cartelle_output.items():
                 mime="application/zip"
             )
 
-
-if "last_refresh" not in st.session_state:
-    st.session_state.last_refresh = time.time()
-
-# Ogni 5 minuti
-if time.time() - st.session_state.last_refresh > 15:
-    st.session_state.last_refresh = time.time()
-    st.experimental_rerun()
