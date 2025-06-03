@@ -61,10 +61,16 @@ if st.button("🌀 Filtro Laplaciano"):
     st.success("Filtro Laplaciano completato!")
 
 def crea_bottone_download_per_cartella(nome_cartella):
-    if os.path.isdir(nome_cartella) and os.listdir(nome_cartella):
+    if os.path.isdir(nome_cartella) and any(
+        os.path.isfile(os.path.join(nome_cartella, f)) for f in os.listdir(nome_cartella)
+    ):
         zip_path = f"{nome_cartella}.zip"
-        if not os.path.exists(zip_path):
-            shutil.make_archive(nome_cartella, 'zip', nome_cartella)
+
+        # Elimina ZIP esistente (in caso sia corrotto)
+        if os.path.exists(zip_path):
+            os.remove(zip_path)
+
+        shutil.make_archive(nome_cartella, 'zip', nome_cartella)
 
         with open(zip_path, "rb") as f:
             st.download_button(
