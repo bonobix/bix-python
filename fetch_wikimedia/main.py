@@ -3,9 +3,9 @@ import subprocess
 
 # Lista degli script da eseguire in ordine
 SCRIPTS = [
-    "fetch_images.py",
-    "entropy_filter.py",
-    "laplacian_filter.py"
+    "fetch-dipinti.py",
+    "verifica-entropia.py",
+    "filtro-laplaciano.py"
 ]
 
 def run_script(script):
