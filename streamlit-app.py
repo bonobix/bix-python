@@ -27,9 +27,6 @@ if st.button("🌀 Filtro Laplaciano"):
     laplace_filter()
     st.success("Filtro Laplaciano completato!")
 
-if st.button("📂 Apri cartella finale"):
-    st.write("Apri la cartella `selected_paintings` sul tuo sistema.")
-
 user_category = st.text_input("🎯 Categoria Wikimedia:", "Paintings by Jan van Goyen")
 
 if st.button("🔄 Aggiorna categoria"):
