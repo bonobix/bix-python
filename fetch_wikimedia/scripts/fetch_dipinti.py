@@ -5,6 +5,13 @@ import json
 
 CONFIG_PATH = os.path.join(os.path.dirname(__file__), "config.json")
 
+if os.path.exists(CONFIG_PATH):
+    with open(CONFIG_PATH, "r") as f:
+        config = json.load(f)
+    CATEGORY_NAME = config.get("CATEGORY_NAME", "Paintings by Jan van Goyen")
+else:
+    CATEGORY_NAME = "Paintings by Jan van Goyen"
+    
 with open(CONFIG_PATH, "r") as f:
     config = json.load(f)
 
