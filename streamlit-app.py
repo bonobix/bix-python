@@ -4,6 +4,7 @@ import shutil
 import json
 import sys
 import subprocess
+from collections import deque
 
 from fetch_wikimedia.scripts.fetch_dipinti import main as fetch_images
 from fetch_wikimedia.scripts.filtro_entropia import main as entropy_filter
@@ -27,9 +28,8 @@ if st.button("🔄 Aggiorna categoria"):
         
 if st.button("🔍 Scarica immagini"):
     st.write("Inizio download...")
-    log_box = st.empty()  # Qui scriviamo progressivamente l'output
+    log_box = st.empty()
 
-    # Eseguiamo lo script come subprocess e leggiamo l'output riga per riga
     process = subprocess.Popen(
         [sys.executable, "fetch_wikimedia/scripts/fetch_dipinti.py"],
         stdout=subprocess.PIPE,
@@ -38,10 +38,11 @@ if st.button("🔍 Scarica immagini"):
         bufsize=1
     )
 
-    output = ""
+    last_lines = deque(maxlen=5)  # 🔁 Solo le ultime 5 righe
+
     for line in process.stdout:
-        output += line
-        log_box.code(output)  # Aggiorniamo la "finestra terminale"
+        last_lines.append(line)
+        log_box.code("".join(last_lines))  # 🎯 Mostra solo le ultime 5
 
     process.wait()
 
