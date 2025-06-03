@@ -106,6 +106,6 @@ if "last_refresh" not in st.session_state:
     st.session_state.last_refresh = time.time()
 
 # Ogni 5 minuti
-if time.time() - st.session_state.last_refresh > 300:
+if time.time() - st.session_state.last_refresh > 15:
     st.session_state.last_refresh = time.time()
     st.experimental_rerun()
