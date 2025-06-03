@@ -2,7 +2,7 @@ import streamlit as st
 import os
 import shutil
 import json
-import subprocess
+import sys
 
 from fetch_wikimedia.scripts.fetch_dipinti import main as fetch_images
 from fetch_wikimedia.scripts.filtro_entropia import main as entropy_filter
@@ -30,7 +30,7 @@ if st.button("🔍 Scarica immagini"):
 
     # Eseguiamo lo script come subprocess e leggiamo l'output riga per riga
     process = subprocess.Popen(
-        ["python", "fetch_wikimedia/scripts/fetch_dipinti.py"],
+        [sys.executable, "fetch_wikimedia/scripts/fetch_dipinti.py"],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         text=True,
