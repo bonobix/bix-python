@@ -1,8 +1,8 @@
 import streamlit as st
 import os
-from fetch-dipinti import main as fetch_images
-from filtro-entropia import main as entropy_filter
-from filtro-laplaciano import main as laplace_filter
+from fetch_dipinti import main as fetch_images
+from filtro_entropia import main as entropy_filter
+from filtro_laplaciano import main as laplace_filter
 
 st.set_page_config(page_title="Wikimedia Art Filter", layout="centered")
 
