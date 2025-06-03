@@ -1,5 +1,6 @@
 import streamlit as st
 import os
+import json
 
 from fetch_wikimedia.scripts.fetch_dipinti import main as fetch_images
 from fetch_wikimedia.scripts.filtro_entropia import main as entropy_filter
@@ -27,3 +28,14 @@ if st.button("🌀 Filtro Laplaciano"):
 
 if st.button("📂 Apri cartella finale"):
     st.write("Apri la cartella `selected_paintings` sul tuo sistema.")
+
+user_category = st.text_input("🎯 Categoria Wikimedia:", "Paintings by Jan van Goyen")
+
+if st.button("🔄 Aggiorna categoria"):
+    config_path = os.path.join("fetch_wikimedia", "scripts", "config.json")
+    try:
+        with open(config_path, "w") as f:
+            json.dump({"CATEGORY_NAME": user_category}, f)
+        st.success(f"✅ Categoria aggiornata a: {user_category}")
+    except Exception as e:
+        st.error(f"❌ Errore durante l'aggiornamento: {e}")
