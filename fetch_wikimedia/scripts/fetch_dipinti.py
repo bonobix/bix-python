@@ -1,8 +1,14 @@
 import requests
 import os
 import urllib.parse
+import json
 
-CATEGORY_NAME = "Paintings by Jan van Goyen"
+CONFIG_PATH = os.path.join(os.path.dirname(__file__), "config.json")
+
+with open(CONFIG_PATH, "r") as f:
+    config = json.load(f)
+
+CATEGORY_NAME = config.get("CATEGORY_NAME", "Paintings by Jan van Goyen")
 SAVE_FOLDER = "baroque_paintings"
 os.makedirs(SAVE_FOLDER, exist_ok=True)
 
