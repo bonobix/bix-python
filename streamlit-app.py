@@ -3,6 +3,7 @@ import os
 import shutil
 import json
 import sys
+import subprocess
 
 from fetch_wikimedia.scripts.fetch_dipinti import main as fetch_images
 from fetch_wikimedia.scripts.filtro_entropia import main as entropy_filter
