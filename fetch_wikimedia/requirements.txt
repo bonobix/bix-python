@@ -1,4 +1,6 @@
 streamlit
-requests
-Pillow
 opencv-python-headless
+pillow
+numpy
+requests
+beautifulsoup4
