@@ -12,6 +12,17 @@ st.set_page_config(page_title="Wikimedia Art Filter", layout="centered")
 st.title("🎨 Wikimedia Art Filter")
 st.write("Scarica dipinti, filtra per qualità, e seleziona le immagini migliori.")
 
+user_category = st.text_input("🎯 Categoria Wikimedia:", "Paintings by Jan van Goyen")
+
+if st.button("🔄 Aggiorna categoria"):
+    config_path = os.path.join("fetch_wikimedia", "scripts", "config.json")
+    try:
+        with open(config_path, "w") as f:
+            json.dump({"CATEGORY_NAME": user_category}, f)
+        st.success(f"✅ Categoria aggiornata a: {user_category}")
+    except Exception as e:
+        st.error(f"❌ Errore durante l'aggiornamento: {e}")
+        
 if st.button("🔍 Scarica immagini"):
     st.write("Inizio download...")
     fetch_images()
@@ -26,17 +37,6 @@ if st.button("🌀 Filtro Laplaciano"):
     st.write("Analisi del dettaglio in corso...")
     laplace_filter()
     st.success("Filtro Laplaciano completato!")
-
-user_category = st.text_input("🎯 Categoria Wikimedia:", "Paintings by Jan van Goyen")
-
-if st.button("🔄 Aggiorna categoria"):
-    config_path = os.path.join("fetch_wikimedia", "scripts", "config.json")
-    try:
-        with open(config_path, "w") as f:
-            json.dump({"CATEGORY_NAME": user_category}, f)
-        st.success(f"✅ Categoria aggiornata a: {user_category}")
-    except Exception as e:
-        st.error(f"❌ Errore durante l'aggiornamento: {e}")
 
 def crea_bottone_download_per_cartella(nome_cartella):
     if os.path.isdir(nome_cartella) and os.listdir(nome_cartella):
