@@ -1,4 +1,4 @@
-# 🖼️ Fetch Paintings by Jan van Goyen (and more!)
+# 🖼️ Fetch Paintings on Wikimedia (and more!)
 
 Questo modulo scarica dipinti da Wikimedia Commons, poi filtra le immagini in base a:
 
