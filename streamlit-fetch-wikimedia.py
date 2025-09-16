@@ -51,10 +51,10 @@ for line in process.stdout:
     log_box.code("".join(last_lines))
 
 process.wait()
-if result.returncode == 0:
+if process.returncode == 0:
     st.success("✅ Download completato!")
 else:
-    st.error(f"❌ Errore: {result.stderr}")
+    st.error(f"❌ Errore: il processo è terminato con codice {process.returncode}")
         
 if st.button("🧠 Filtro entropia"):
     st.write("Filtraggio entropico in corso...")
