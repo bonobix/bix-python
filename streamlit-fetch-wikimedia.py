@@ -11,19 +11,13 @@ from fetch_wikimedia.scripts.filtro_entropia import main as entropy_filter
 from fetch_wikimedia.scripts.filtro_laplaciano import main as laplace_filter
 
 
-st.set_page_config(page_title="Wikimedia Art Filter", layout="centered")
+st.set_page_config(page_title="Wikimedia Image Filter", layout="centered")
     
-st.title("🎨 Wikimedia Art Filter")
+st.title("🎨 Wikimedia Image Filter")
 st.write("Scarica, filtra per qualità, e seleziona le immagini migliori.")
 
 user_category = st.text_input("🎯 Categoria Wikimedia:", "Paintings by Jan van Goyen")
-st.markdown(
-    """
-    🔗 **Suggerimento**: puoi esplorare le categorie su 
-    [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:Paintings).  
-    Basta copiare il nome della categoria (es: `Paintings by Jan van Goyen`) e incollarlo qui sopra.
-    """
-)
+
 if st.button("🔄 Aggiorna categoria"):
     config_path = os.path.join("fetch_wikimedia", "scripts", "config.json")
     try:
@@ -33,28 +27,30 @@ if st.button("🔄 Aggiorna categoria"):
     except Exception as e:
         st.error(f"❌ Errore durante l'aggiornamento: {e}")
         
-st.write("Inizio download...")
-log_box = st.empty()
+if st.button("🔍 Scarica immagini"):
+    st.write("Inizio download...")
+    log_box = st.empty()
 
-process = subprocess.Popen(
-    [sys.executable, "fetch_wikimedia/scripts/fetch_dipinti.py"],
-    stdout=subprocess.PIPE,
-    stderr=subprocess.STDOUT,
-    text=True,
-    bufsize=1
-)
+    process = subprocess.Popen(
+        [sys.executable, "fetch_wikimedia/scripts/fetch_dipinti.py"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        text=True,
+        bufsize=1
+    )
 
-last_lines = deque(maxlen=5)
+    last_lines = deque(maxlen=5)  # 🔁 Solo le ultime 5 righe
 
-for line in process.stdout:
-    last_lines.append(line)
-    log_box.code("".join(last_lines))
+    for line in process.stdout:
+        last_lines.append(line)
+        log_box.code("".join(last_lines))  # 🎯 Mostra solo le ultime 5
 
-process.wait()
-if process.returncode == 0:
-    st.success("✅ Download completato!")
-else:
-    st.error(f"❌ Errore: il processo è terminato con codice {process.returncode}")
+    process.wait()
+
+    if process.returncode == 0:
+        st.success("✅ Download completato!")
+    else:
+        st.error("❌ Qualcosa è andato storto!")
         
 if st.button("🧠 Filtro entropia"):
     st.write("Filtraggio entropico in corso...")
@@ -104,4 +100,3 @@ for cartella, etichetta in cartelle_output.items():
                 file_name=f"{cartella}.zip",
                 mime="application/zip"
             )
-
