@@ -35,9 +35,9 @@ def get_images_from_category(category, limit=50):
     }
     response = requests.get(url, params=params)
     data = response.json()
-print(response.status_code)
-print(response.headers.get("content-type"))
-print(response.text[:200])
+    print(response.status_code)
+    print(response.headers.get("content-type"))
+    print(response.text[:200])
     if "query" in data:
         for pageid in data['query']['pages']:
             page = data['query']['pages'][pageid]
