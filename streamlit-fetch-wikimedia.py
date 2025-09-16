@@ -12,6 +12,11 @@ from fetch_wikimedia.scripts.filtro_laplaciano import main as laplace_filter
 
 
 st.set_page_config(page_title="Wikimedia Image Filter", layout="centered")
+
+st.title("🎨 Wikimedia Image Filter")
+st.write("Scarica, filtra per qualità, e seleziona le immagini migliori.")
+
+user_category = st.text_input("🎯 Categoria Wikimedia:", "Paintings by Jan van Goyen")
 st.markdown(
     """
     🔗 **Suggerimento**: esplora le categorie su 
@@ -19,11 +24,6 @@ st.markdown(
     Copia il nome della categoria che ti interessa (es: `Paintings by Jan van Goyen`) e incollalo qui sopra.
     """
 )   
-st.title("🎨 Wikimedia Image Filter")
-st.write("Scarica, filtra per qualità, e seleziona le immagini migliori.")
-
-user_category = st.text_input("🎯 Categoria Wikimedia:", "Paintings by Jan van Goyen")
-
 if st.button("🔄 Aggiorna categoria"):
     config_path = os.path.join("fetch_wikimedia", "scripts", "config.json")
     try:
