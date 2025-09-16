@@ -27,10 +27,7 @@ if st.button("🔄 Aggiorna categoria"):
     except Exception as e:
         st.error(f"❌ Errore durante l'aggiornamento: {e}")
         
-if st.button("🔍 Scarica immagini"):
-    st.write("Inizio download...")
-    log_box = st.empty()
-
+with st.spinner("📥 Download in corso... attendo le immagini dai maghi di Wikimedia ✨"):
     process = subprocess.Popen(
         [sys.executable, "fetch_wikimedia/scripts/fetch_dipinti.py"],
         stdout=subprocess.PIPE,
@@ -38,13 +35,6 @@ if st.button("🔍 Scarica immagini"):
         text=True,
         bufsize=1
     )
-
-    last_lines = deque(maxlen=5)  # 🔁 Solo le ultime 5 righe
-
-    for line in process.stdout:
-        last_lines.append(line)
-        log_box.code("".join(last_lines))  # 🎯 Mostra solo le ultime 5
-
     process.wait()
 
     if process.returncode == 0:
