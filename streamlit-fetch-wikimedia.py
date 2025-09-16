@@ -13,8 +13,8 @@ from fetch_wikimedia.scripts.filtro_laplaciano import main as laplace_filter
 
 st.set_page_config(page_title="Wikimedia Image Filter", layout="centered")
 
-st.title("🎨 -- Wikimedia ImageFilter --")
-st.write("Scarica, filtra per qualità, e seleziona le immagini migliori.")
+st.title("Wikimedia 🎨ImageFilter")
+st.write("Scarica sfondi/dipinti, filtra per qualità, e seleziona le immagini migliori.")
 
 user_category = st.text_input("🎯 Categoria Wikimedia:", "Paintings by Jan van Goyen")
 st.markdown(
