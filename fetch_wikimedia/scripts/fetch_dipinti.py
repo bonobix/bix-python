@@ -33,7 +33,10 @@ def get_images_from_category(category, limit=50):
         "iiprop": "url|size|mime",
         "format": "json"
     }
-    response = requests.get(url, params=params)
+    headers = {
+    "User-Agent": "DipintiFetcher/1.0 (https://facaldo.streamlit.app; contatto@esempio.com)"
+        }
+    response = requests.get(url, params=params, headers=headers)
     data = response.json()
 
     if "query" in data:
