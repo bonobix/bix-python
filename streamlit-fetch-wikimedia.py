@@ -58,7 +58,7 @@ if st.button("🔍 Scarica immagini"):
     else:
         st.error("❌ Qualcosa è andato storto!")
         
-if st.button("🧠 Filtro entropia"):
+if st.button("🌀 Filtro entropia"):
     st.write("Filtraggio entropico in corso...")
     entropy_filter()
     st.success("Filtro entropia completato!")
