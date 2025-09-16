@@ -27,12 +27,24 @@ if st.button("🔄 Aggiorna categoria"):
     except Exception as e:
         st.error(f"❌ Errore durante l'aggiornamento: {e}")
         
-with st.spinner("📥 Download in corso..."):
-    result = subprocess.run(
-        [sys.executable, "fetch_wikimedia/scripts/fetch_dipinti.py"],
-        capture_output=True,
-        text=True
-    )
+st.write("Inizio download...")
+log_box = st.empty()
+
+process = subprocess.Popen(
+    [sys.executable, "fetch_wikimedia/scripts/fetch_dipinti.py"],
+    stdout=subprocess.PIPE,
+    stderr=subprocess.STDOUT,
+    text=True,
+    bufsize=1
+)
+
+last_lines = deque(maxlen=5)
+
+for line in process.stdout:
+    last_lines.append(line)
+    log_box.code("".join(last_lines))
+
+process.wait()
 if result.returncode == 0:
     st.success("✅ Download completato!")
 else:
