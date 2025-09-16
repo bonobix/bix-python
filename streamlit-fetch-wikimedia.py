@@ -27,20 +27,16 @@ if st.button("🔄 Aggiorna categoria"):
     except Exception as e:
         st.error(f"❌ Errore durante l'aggiornamento: {e}")
         
-with st.spinner("📥 Download in corso... attendo le immagini dai maghi di Wikimedia ✨"):
-    process = subprocess.Popen(
+with st.spinner("📥 Download in corso..."):
+    result = subprocess.run(
         [sys.executable, "fetch_wikimedia/scripts/fetch_dipinti.py"],
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        text=True,
-        bufsize=1
+        capture_output=True,
+        text=True
     )
-    process.wait()
-
-    if process.returncode == 0:
-        st.success("✅ Download completato!")
-    else:
-        st.error("❌ Qualcosa è andato storto!")
+if result.returncode == 0:
+    st.success("✅ Download completato!")
+else:
+    st.error(f"❌ Errore: {result.stderr}")
         
 if st.button("🧠 Filtro entropia"):
     st.write("Filtraggio entropico in corso...")
