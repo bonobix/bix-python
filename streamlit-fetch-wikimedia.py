@@ -17,7 +17,13 @@ st.title("🎨 Wikimedia Art Filter")
 st.write("Scarica, filtra per qualità, e seleziona le immagini migliori.")
 
 user_category = st.text_input("🎯 Categoria Wikimedia:", "Paintings by Jan van Goyen")
-
+st.markdown(
+    """
+    🔗 **Suggerimento**: puoi esplorare le categorie su 
+    [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:Paintings).  
+    Basta copiare il nome della categoria (es: `Paintings by Jan van Goyen`) e incollarlo qui sopra.
+    """
+)
 if st.button("🔄 Aggiorna categoria"):
     config_path = os.path.join("fetch_wikimedia", "scripts", "config.json")
     try:
