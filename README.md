@@ -1,2 +1,2 @@
-# script python personali
-raccolta di script python
+# python 
+python
