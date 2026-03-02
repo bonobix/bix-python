@@ -24,12 +24,12 @@ def main():
             with Image.open(path) as img:
                 entropy = calculate_entropy(img)
                 if entropy < THRESHOLD_ENTROPY:
-                    print(f"[⚠️] Scarsa qualità ({entropy:.2f}): {file}")
+                    print(f"Scarsa qualità ({entropy:.2f}): {file}")
                     os.remove(path)
                 else:
-                    print(f"[✅] OK ({entropy:.2f}): {file}")
+                    print(f"OK ({entropy:.2f}): {file}")
         except Exception as e:
-            print(f"[💥] Errore su {file}: {e}")
+            print(f"Errore su {file}: {e}")
 
 if __name__ == "__main__":
     main()
