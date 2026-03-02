@@ -19,7 +19,7 @@ def main():
         if os.path.exists(script):
             run_script(script)
         else:
-            print(f"[❓] Script mancante: {script}")
+            print(f"Script mancante: {script}")
 
 if __name__ == "__main__":
     main()
