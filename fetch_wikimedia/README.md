@@ -3,7 +3,7 @@
 Questo modulo scarica dipinti da Wikimedia Commons, poi filtra le immagini in base a:
 
 - **Entropia** (per evitare immagini piatte o troppo compresse)
-- **Varianza del Laplaciano** (per valutare la nitidezza)
+- **Valutazione nitidezza** 
 
 ## Struttura degli script
 
